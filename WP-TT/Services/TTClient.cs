@@ -41,37 +41,63 @@ namespace WP_TT.Services
             return new DateTime(year, month, day, hour, minutes, seconds);
         }
 
-        public async Task<DateTime> RemoteDatetime()
+        public async Task<DateTime> RemoteDatetimeAsync()
         {
             var httpClient = new HttpClient();
             var result = await httpClient.GetAsync(new Uri(baseUri, "GetClockDeviceInfo?deviceID=2"));
             return ExtractDatetimeFromRemoteDatetimeHttpResponse(result);
         }
 
-        public bool login(string login, string password)
-        {
-            return true;
-        }
-
         public string FixJson(string script)
         {
-            Regex regexFixJson = new Regex("(\\s*?{\\s*?|\\s*?,\\s*?)(['\"])?([a-zA-Z0-9_]+)(['\"])?:");
-
-            string fixedJson = regexFixJson.Replace(script, "$1\"$3\":");
-
+            var regexFixJson = new Regex("(\\s*?{\\s*?|\\s*?,\\s*?)(['\"])?([a-zA-Z0-9_]+)(['\"])?:");
+            var fixedJson = regexFixJson.Replace(script, "$1\"$3\":");
             return fixedJson;
         }
 
-        public async Task<bool> DoCheckIn(string userName, string password)
+        public async Task<DateTime?> DoCheckInOrOutAsync(string userName, string password)
         {
-            Regex regexSuccessCheckIn = new Regex(@"success:\s*true");
-            Uri checkInUri = new Uri(baseUri, "SaveTimmingEvent");
+            var regexSuccessCheckIn = new Regex(@"success:\s*true");
+            var checkInOrOutUri = new Uri(baseUri, "SaveTimmingEvent");
             var httpClient = new HttpClient();
-            DateTime checkinDateTime = await RemoteDatetime();
-
+            var checkinDateTime = await RemoteDatetimeAsync();
             try
             {
-                Dictionary<string, string> contentParameters = new Dictionary<string, string>
+                var content = new Windows.Web.Http.HttpFormUrlEncodedContent(BuildHttpFormContentForCheckInOrOut(userName, password));
+                var response = await httpClient.PostAsync(checkInOrOutUri, content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var responseJson = FixJson(responseContent);
+                var responseType = new { success = false, msg = new { type = 0, msg = "" } };
+                var responseObject = JsonConvert.DeserializeAnonymousType(responseJson, responseType);
+                if (IsCheckSaved((int)responseObject.msg.type) && responseObject.success)
+                {
+                    return checkinDateTime;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch { }
+            return null;
+        }
+
+        private bool IsCheckSaved(int checkResponseType)
+        {
+            switch (checkResponseType)
+            {
+                case CHECK_RECORDED:
+                    return true;
+                case INVALID_CREDENTIALS:
+                case OFFLINE_BACKEND:
+                default:
+                    return false;
+            }
+        }
+
+        private Dictionary<string, string> BuildHttpFormContentForCheckInOrOut(string userName, string password)
+        {
+            var contentParameters = new Dictionary<string, string>
                 {
                     {"deviceID", "2"},
                     {"eventType", "1"},
@@ -111,38 +137,7 @@ namespace WP_TT.Services
                     {"dtTmFmt", "d/m/Y H:i:s"},
                     {"language", "0"}
                 };
-
-
-                var content = new Windows.Web.Http.HttpFormUrlEncodedContent(contentParameters);
-
-                HttpResponseMessage response = await httpClient.PostAsync(checkInUri, content);
-
-                string responseContent = await response.Content.ReadAsStringAsync();
-                string responseJson = FixJson(responseContent);
-
-                var responseType = new { success = false, msg = new { type = 0, msg = "" } };
-
-                var responseObject = JsonConvert.DeserializeAnonymousType(responseJson, responseType);
-
-                bool result = false;
-
-                switch ((int)responseObject.msg.type)
-                {
-                    case CHECK_RECORDED:
-                        result = true;
-                        break;
-                    case INVALID_CREDENTIALS:
-                    case OFFLINE_BACKEND:
-                        result = false;
-                        break;
-                }
-
-                return result && responseObject.success;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+            return contentParameters;
         }
     }
 }
