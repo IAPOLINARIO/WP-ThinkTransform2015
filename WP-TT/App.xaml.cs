@@ -17,6 +17,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using WP_TT.Services;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.Security.Credentials;
 
 // The Hub Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
@@ -63,6 +65,8 @@ namespace WP_TT
         /// <param name="e">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
+            await StatusBar.GetForCurrentView().HideAsync();
+
 #if DEBUG
             //if (System.Diagnostics.Debugger.IsAttached)
             //{
