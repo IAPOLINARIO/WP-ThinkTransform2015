@@ -28,10 +28,17 @@ namespace WP_TT.Services
 
         private async Task<IEnumerable<TTCheck>> FindAllAsync()
         {
-            var file = await ApplicationData.Current.LocalFolder.GetFileAsync(FILENAME);
-            var jsonString = await FileIO.ReadTextAsync(file);
-            var checks = JsonConvert.DeserializeObject<List<TTCheck>>(jsonString);
-            return checks;
+            try
+            {
+                var file = await ApplicationData.Current.LocalFolder.GetFileAsync(FILENAME);
+                var jsonString = await FileIO.ReadTextAsync(file);
+                var checks = JsonConvert.DeserializeObject<List<TTCheck>>(jsonString);
+                return checks;
+            }
+            catch
+            {
+                return Enumerable.Empty<TTCheck>();
+            }
         }
 
         public async Task<IEnumerable<TTCheck>> FindAllByUserNameAsync(string userName)
