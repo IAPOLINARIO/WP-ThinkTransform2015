@@ -1,5 +1,4 @@
 ﻿using WP_TT.Common;
-using WP_TT.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -77,9 +76,6 @@ namespace WP_TT
         /// session.  The state will be null the first time a page is visited.</param>
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            // TODO: Create an appropriate data model for your problem domain to replace the sample data
-            var sampleDataGroups = await SampleDataSource.GetGroupsAsync();
-            this.DefaultViewModel["Groups"] = sampleDataGroups;
         }
 
         /// <summary>
@@ -93,32 +89,6 @@ namespace WP_TT
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
             // TODO: Save the unique state of the page here.
-        }
-
-        /// <summary>
-        /// Shows the details of a clicked group in the <see cref="SectionPage"/>.
-        /// </summary>
-        private void GroupSection_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var groupId = ((SampleDataGroup)e.ClickedItem).UniqueId;
-            if (!Frame.Navigate(typeof(SectionPage), groupId))
-            {
-                throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
-            }
-        }
-
-        /// <summary>
-        /// Shows the details of an item clicked on in the <see cref="ItemPage"/>
-        /// </summary>
-        private void ItemView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            // Navigate to the appropriate destination page, configuring the new page
-            // by passing required information as a navigation parameter
-            var itemId = ((SampleDataItem)e.ClickedItem).UniqueId;
-            if (!Frame.Navigate(typeof(ItemPage), itemId))
-            {
-                throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
-            }
         }
 
         #region NavigationHelper registration
