@@ -37,6 +37,9 @@ namespace WP_TT
             this.RequestedTheme = ApplicationTheme.Light;
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+
+            var service = new WP_TT.Services.TTService();
+            var remoteDatetime = service.RemoteDatetime();
         }
 
         /// <summary>
