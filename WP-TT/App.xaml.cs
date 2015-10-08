@@ -41,7 +41,7 @@ namespace WP_TT
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
 
-            var service = new WP_TT.Services.TTService();
+            var service = new WP_TT.Services.TTClient();
 
             service.RemoteDatetime().ContinueWith(t =>
             {

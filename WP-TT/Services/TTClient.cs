@@ -12,7 +12,7 @@ using Windows.Web.Http;
 
 namespace WP_TT.Services
 {
-    internal class TTService
+    internal class TTClient
     {
         private const string BASE_URL = "https://tt.ciandt.com/.net/index.ashx/";
         private Uri baseUri;
@@ -21,7 +21,7 @@ namespace WP_TT.Services
         private const int INVALID_CREDENTIALS = 2;
         private const int OFFLINE_BACKEND = 3;
 
-        internal TTService()
+        internal TTClient()
         {
             baseUri = new Uri(BASE_URL);
         }
