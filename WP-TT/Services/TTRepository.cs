@@ -12,25 +12,27 @@ namespace WP_TT.Services
 
     class TTRepository
     {
-        const string FILENAME = "checks.txt";
-
+        private const string FILENAME = "checks.txt";
         public async Task SaveAsync(TTCheck check)
         {
             var checks = (await FindAllAsync()).ToList();
-
             checks.Add(check);
-
             var jsonString = JsonConvert.SerializeObject(checks);
-
-            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(FILENAME, CreationCollisionOption.ReplaceExisting);
+            var file = await LocalFile();
             await FileIO.WriteTextAsync(file, jsonString);
+        }
+
+        private async Task<StorageFile> LocalFile()
+        {
+            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(FILENAME, CreationCollisionOption.ReplaceExisting);
+            return file;
         }
 
         private async Task<IEnumerable<TTCheck>> FindAllAsync()
         {
             try
             {
-                var file = await ApplicationData.Current.LocalFolder.GetFileAsync(FILENAME);
+                var file = await LocalFile();
                 var jsonString = await FileIO.ReadTextAsync(file);
                 var checks = JsonConvert.DeserializeObject<List<TTCheck>>(jsonString);
                 return checks;
