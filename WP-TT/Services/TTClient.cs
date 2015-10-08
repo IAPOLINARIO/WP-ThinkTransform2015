@@ -41,16 +41,11 @@ namespace WP_TT.Services
             return new DateTime(year, month, day, hour, minutes, seconds);
         }
 
-        public async Task<DateTime> RemoteDatetime()
+        public async Task<DateTime> RemoteDatetimeAsync()
         {
             var httpClient = new HttpClient();
             var result = await httpClient.GetAsync(new Uri(baseUri, "GetClockDeviceInfo?deviceID=2"));
             return ExtractDatetimeFromRemoteDatetimeHttpResponse(result);
-        }
-
-        public bool login(string login, string password)
-        {
-            return true;
         }
 
         public string FixJson(string script)
@@ -62,12 +57,12 @@ namespace WP_TT.Services
             return fixedJson;
         }
 
-        public async Task<bool> DoCheckIn(string userName, string password)
+        public async Task<DateTime?> DoCheckInOrOutAsync(string userName, string password)
         {
             Regex regexSuccessCheckIn = new Regex(@"success:\s*true");
             Uri checkInUri = new Uri(baseUri, "SaveTimmingEvent");
             var httpClient = new HttpClient();
-            DateTime checkinDateTime = await RemoteDatetime();
+            DateTime checkinDateTime = await RemoteDatetimeAsync();
 
             try
             {
@@ -137,11 +132,18 @@ namespace WP_TT.Services
                         break;
                 }
 
-                return result && responseObject.success;
+                if (result && responseObject.success)
+                {
+                    return checkinDateTime;
+                }
+                else
+                {
+                    return null;
+                }
             }
             catch (Exception ex)
             {
-                return false;
+                return null;
             }
         }
     }

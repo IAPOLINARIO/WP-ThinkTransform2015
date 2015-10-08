@@ -43,7 +43,7 @@ namespace WP_TT
 
             var service = new WP_TT.Services.TTClient();
 
-            service.RemoteDatetime().ContinueWith(t =>
+            service.RemoteDatetimeAsync().ContinueWith(t =>
             {
                 if (t.IsCompleted)
                 {
