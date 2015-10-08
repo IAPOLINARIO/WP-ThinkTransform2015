@@ -74,21 +74,41 @@ namespace WP_TT.Services
            
         }
 
+        public static bool IsLogged
+        {
+            get
+            {
+                var vault = new PasswordVault();
+                try
+                {
+                    var creds = vault.FindAllByResource(VAULT_RESOURCE).FirstOrDefault();
+                    if (creds != null)
+                    {
+                        return true;
+                    }
+                }
+                catch {}
+                return false;
+            }
+        }
+
         public static void logoff()
         {
-            var vault = new PasswordVault();
-            try
+            if (IsLogged)
             {
-                var creds = vault.FindAllByResource(VAULT_RESOURCE).FirstOrDefault();
-                if (creds != null)
+                var vault = new PasswordVault();
+                try
                 {
-                    vault.Remove(creds);
+                    var creds = vault.FindAllByResource(VAULT_RESOURCE).FirstOrDefault();
+                    if (creds != null)
+                    {
+                        vault.Remove(creds);
+                    }
+
                 }
-
-            }
-            catch (Exception e)
-            {
-
+                catch (Exception e)
+                {
+                }
             }
         }
     }
