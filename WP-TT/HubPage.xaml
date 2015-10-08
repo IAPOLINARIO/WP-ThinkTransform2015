@@ -27,11 +27,6 @@
                 Width="73"
                 Height="38"
                 HorizontalAlignment="Left"/>
-            <TextBlock Text="Time Tracking"
-                       FontSize="20"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Bottom"
-                       Margin="0 0 4 0"/>
         </Grid>
         <StackPanel Grid.Row="1">
             <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="22" Fill="#A4F1F6"/>
@@ -86,10 +81,9 @@
              HeaderTemplate="{StaticResource HubHeader}" 
              Grid.Row="2"
              Margin="0 30"
-             DefaultSectionIndex="1">
+             Background="{ThemeResource HubBackgroundImageBrush}">
             
-            <HubSection x:Uid="HubSectionProfile"
-                        Header="Profile">
+            <HubSection x:Uid="HubSectionCheckin">
                 <DataTemplate>
                     <Grid>
 
@@ -97,19 +91,18 @@
                 </DataTemplate>
             </HubSection>
 
-            <HubSection x:Uid="HubSectionCheckin"
-                        Header="CHECK IN/OUT">
-                <DataTemplate>
-                    <Grid>
-
-                    </Grid>
-                </DataTemplate>
-            </HubSection>
-
-            <HubSection x:Uid="HubSectionHistory" Header="HISTORY">
+            <HubSection x:Uid="HubSectionHistory">
                 <DataTemplate>
                     <Grid>
                         
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+            
+            <HubSection x:Uid="HubSectionProfile">
+                <DataTemplate>
+                    <Grid>
+
                     </Grid>
                 </DataTemplate>
             </HubSection>
