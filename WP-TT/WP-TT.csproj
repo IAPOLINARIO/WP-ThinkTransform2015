@@ -105,8 +105,22 @@
     <Content Include="Assets\bg_login.png" />
     <Content Include="Assets\bg_login.scale-140.png" />
     <Content Include="Assets\bg_login.scale-240.png" />
-    <Content Include="Assets\MediumGray.png" />
+    <Content Include="Assets\clock.png" />
+    <Content Include="Assets\clock.scale-140.png" />
+    <Content Include="Assets\clock.scale-240.png" />
+    <Content Include="Assets\logo_ciandt.png" />
+    <Content Include="Assets\logo_ciandt.scale-140.png" />
+    <Content Include="Assets\logo_ciandt.scale-240.png" />
     <Content Include="Assets\Logo.scale-240.png" />
+    <Content Include="Assets\pointers\hours.png" />
+    <Content Include="Assets\pointers\hours.scale-140.png" />
+    <Content Include="Assets\pointers\hours.scale-240.png" />
+    <Content Include="Assets\pointers\minutes.png" />
+    <Content Include="Assets\pointers\minutes.scale-140.png" />
+    <Content Include="Assets\pointers\minutes.scale-240.png" />
+    <Content Include="Assets\pointers\seconds.png" />
+    <Content Include="Assets\pointers\seconds.scale-140.png" />
+    <Content Include="Assets\pointers\seconds.scale-240.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />
     <Content Include="Assets\Square71x71Logo.scale-240.png" />
@@ -134,13 +148,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\portable-net45+wp80+win8+wpa81+dnxcore50\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

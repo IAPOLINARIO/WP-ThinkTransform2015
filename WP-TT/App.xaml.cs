@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using WP_TT.Services;
 
 // The Hub Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
@@ -28,6 +29,8 @@ namespace WP_TT
     {
         private TransitionCollection transitions;
 
+        public static long Gap { get; set; }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -39,7 +42,16 @@ namespace WP_TT
             this.Suspending += this.OnSuspending;
 
             var service = new WP_TT.Services.TTService();
-            var remoteDatetime = service.RemoteDatetime();
+
+            service.RemoteDatetime().ContinueWith(t =>
+            {
+                if (t.IsCompleted)
+                {
+                    DateTime serverTime = t.Result;
+                    App.Gap = serverTime.Subtract(DateTime.Now).Ticks;
+                }
+            });
+
         }
 
         /// <summary>
@@ -108,7 +120,7 @@ namespace WP_TT
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter.
-                if (!rootFrame.Navigate(typeof(Login), e.Arguments))
+                if (!rootFrame.Navigate(typeof(HubPage), e.Arguments))
                 {
                     throw new Exception("Failed to create initial page");
                 }
