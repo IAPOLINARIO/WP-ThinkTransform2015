@@ -62,6 +62,15 @@ namespace WP_TT
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+            if (!SecurityService.IsLogged)
+            {
+                GoToLoginPage();
+            }
+        }
+
+        private void GoToLoginPage()
+        {
+            this.Frame.Navigate(typeof(Login));
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
@@ -81,5 +90,11 @@ namespace WP_TT
         }
 
         #endregion
+
+        private void LogoffButtonClicked(object sender, RoutedEventArgs e)
+        {
+            SecurityService.logoff();
+            GoToLoginPage();
+        }
     }
 }

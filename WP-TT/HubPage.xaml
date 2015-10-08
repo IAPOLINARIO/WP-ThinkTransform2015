@@ -128,7 +128,7 @@
                         <TextBlock
                             Text="Software Engineer"
                             HorizontalAlignment="Center"/>
-                        <Button
+                        <Button Click="LogoffButtonClicked"
                             HorizontalAlignment="Center"
                             Content="Logout"/>
                     </StackPanel>
