@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using WP_TT.Services;
+using Windows.Security.Credentials;
 
 // The Hub Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
@@ -42,7 +43,7 @@ namespace WP_TT
             this.Suspending += this.OnSuspending;
 
             var service = new WP_TT.Services.TTClient();
-
+            const string VAULT_RESOURCE = "TTCredentials";
             service.RemoteDatetimeAsync().ContinueWith(t =>
             {
                 if (t.IsCompleted)
@@ -120,9 +121,21 @@ namespace WP_TT
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter.
-                if (!rootFrame.Navigate(typeof(HubPage), e.Arguments))
+
+                Tuple<string, string> credential = SecurityService.getCredential();
+                if (credential != null)
                 {
-                    throw new Exception("Failed to create initial page");
+                    if (!rootFrame.Navigate(typeof(HubPage), e.Arguments))
+                    {
+                        throw new Exception("Failed to create initial page");
+                    }
+                }
+                else
+                {
+                    if (!rootFrame.Navigate(typeof(Login), e.Arguments))
+                    {
+                        throw new Exception("Failed to create initial page");
+                    }
                 }
             }
 

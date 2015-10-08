@@ -51,6 +51,45 @@ namespace WP_TT.Services
             return success;
         }
 
+        public static Tuple<string, string> getCredential()
+        {
+            var vault = new PasswordVault();
 
+            Tuple<string, string> credential = null;
+
+            try {
+                var creds = vault.FindAllByResource(VAULT_RESOURCE).FirstOrDefault();
+                if (creds != null)
+                {
+                    String username = creds.UserName;
+                    String password = vault.Retrieve(VAULT_RESOURCE, username).Password;
+                    credential = new Tuple<string, string>(username, password);
+                }
+                
+            } catch (Exception e){
+
+            }
+
+            return credential;
+           
+        }
+
+        public static void logoff()
+        {
+            var vault = new PasswordVault();
+            try
+            {
+                var creds = vault.FindAllByResource(VAULT_RESOURCE).FirstOrDefault();
+                if (creds != null)
+                {
+                    vault.Remove(creds);
+                }
+
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
     }
 }
