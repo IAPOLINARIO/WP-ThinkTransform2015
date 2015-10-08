@@ -10,11 +10,42 @@
     Background="White">
 
     <Page.Resources>
+        <DataTemplate x:Key="HubHeader">
+            <Grid>
+            </Grid>
+        </DataTemplate>
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot">
-        <Hub x:Name="Hub" x:Uid="Hub" Header="TT">
-            <HubSection x:Uid="HubSectionCheckin" Header="CHECK IN/OUT">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="15" Fill="#A4F1F6"/>
+            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="15" Fill="#3FCED6"/>
+            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="15" Fill="#A4F1F6"/>
+            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="15" Fill="#3FCED6"/>
+            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="15" Fill="#A4F1F6"/>
+        </StackPanel>
+        <Hub x:Name="Hub"
+             x:Uid="Hub"
+             HeaderTemplate="{StaticResource HubHeader}" 
+             Grid.Row="1"
+             Margin="0 30"
+             DefaultSectionIndex="1">
+            
+            <HubSection x:Uid="HubSectionProfile"
+                        Header="Profile">
+                <DataTemplate>
+                    <Grid>
+
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+
+            <HubSection x:Uid="HubSectionCheckin"
+                        Header="CHECK IN/OUT">
                 <DataTemplate>
                     <Grid>
 
