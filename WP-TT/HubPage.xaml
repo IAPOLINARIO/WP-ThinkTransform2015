@@ -46,34 +46,37 @@
                 HorizontalAlignment="Right"/>
             <Image Source="Assets/pointers/hours.png"
                    Height="35"
-                   VerticalAlignment="Bottom"
-                   Margin="0 0 0 54">
+                   Width="7"
+                   VerticalAlignment="Top"
+                   Margin="0 16 0 0">
                 <Image.RenderTransform>
                     <RotateTransform x:Name="hourHand"
-                                     CenterX="0"
-                                     CenterY="35"
+                                     CenterX="3.5"
+                                     CenterY="33.3"
                                      Angle="0" />
                 </Image.RenderTransform>
             </Image>
             <Image Source="Assets/pointers/minutes.png"
                    Height="35"
-                   VerticalAlignment="Bottom"
-                   Margin="0 0 0 54">
+                   Width="7"
+                   VerticalAlignment="Top"
+                   Margin="0 16 0 0">
                 <Image.RenderTransform>
                     <RotateTransform x:Name="minuteHand"
-                                     CenterX="0"
-                                     CenterY="35"
+                                     CenterX="3.5"
+                                     CenterY="33.3"
                                      Angle="0" />
                 </Image.RenderTransform>
             </Image>
             <Image Source="Assets/pointers/seconds.png"
                    Height="35"
-                   VerticalAlignment="Bottom"
-                   Margin="0 0 0 54">
+                   Width="7"
+                   VerticalAlignment="Top"
+                   Margin="0 16 0 0">
                 <Image.RenderTransform>
                     <RotateTransform x:Name="secondHand"
-                                     CenterX="0"
-                                     CenterY="35"
+                                     CenterX="3.5"
+                                     CenterY="33.3"
                                      Angle="0" />
                 </Image.RenderTransform>
             </Image>
@@ -82,7 +85,6 @@
              x:Uid="Hub"
              HeaderTemplate="{StaticResource HubHeader}" 
              Grid.Row="1"
-             Margin="0 30"
              Background="{ThemeResource HubBackgroundImageBrush}">
             
             <HubSection x:Uid="HubSectionCheckin">
