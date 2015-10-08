@@ -105,9 +105,38 @@
             
             <HubSection x:Uid="HubSectionProfile">
                 <DataTemplate>
-                    <Grid>
-
-                    </Grid>
+                    <StackPanel>
+                        <Border 
+                            Height="150"
+                            Width="150"
+                            CornerRadius="75"
+                            BorderBrush="Aqua"
+                            BorderThickness="10">
+                            <Ellipse
+                            Width="130"
+                            Height="130">
+                                <Ellipse.Fill>
+                                    <ImageBrush>
+                                        <ImageBrush.ImageSource>
+                                            <BitmapImage
+                                            UriSource="ms-appx:///Assets/logo_ciandt.png"/>
+                                        </ImageBrush.ImageSource>
+                                    </ImageBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </Border>
+                        <TextBlock
+                            Text="Anderson Ribeiro"
+                            HorizontalAlignment="Center"
+                            />
+                        <TextBlock
+                            Text="Software Engineer"
+                            HorizontalAlignment="Center"/>
+                        <Button
+                            HorizontalAlignment="Center"
+                            Content="Logout"/>
+                    </StackPanel>
+                    
                 </DataTemplate>
             </HubSection>
         </Hub>

@@ -89,15 +89,12 @@
     <Compile Include="HubPage.xaml.cs">
       <DependentUpon>HubPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\TTCheck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\TTClient.cs" />
+    <Compile Include="Services\TTService.cs" />
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\SecurityService.cs" />
-    <Compile Include="Services\TTRepository.cs" />
-    <Compile Include="Services\TTService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -105,16 +102,13 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\bg_clock.png" />
     <Content Include="Assets\bg_login.png" />
     <Content Include="Assets\bg_login.scale-140.png" />
     <Content Include="Assets\bg_login.scale-240.png" />
+<<<<<<< Updated upstream
     <Content Include="Assets\clock.png" />
     <Content Include="Assets\clock.scale-140.png" />
     <Content Include="Assets\clock.scale-240.png" />
-    <Content Include="Assets\login_press.png" />
-    <Content Include="Assets\login_press.scale-140.png" />
-    <Content Include="Assets\login_press.scale-240.png" />
     <Content Include="Assets\logo_ciandt.png" />
     <Content Include="Assets\logo_ciandt.scale-140.png" />
     <Content Include="Assets\logo_ciandt.scale-240.png" />
@@ -128,13 +122,19 @@
     <Content Include="Assets\pointers\seconds.png" />
     <Content Include="Assets\pointers\seconds.scale-140.png" />
     <Content Include="Assets\pointers\seconds.scale-240.png" />
+=======
     <Content Include="Assets\login.png" />
     <Content Include="Assets\login.scale-140.png" />
     <Content Include="Assets\login.scale-240.png" />
+    <Content Include="Assets\logo_ciandt.png" />
+    <Content Include="Assets\logo_ciandt.scale-140.png" />
+    <Content Include="Assets\logo_ciandt.scale-240.png" />
+    <Content Include="Assets\MediumGray.png" />
     <Content Include="Assets\Logo.scale-240.png" />
     <Content Include="Assets\password.png" />
     <Content Include="Assets\password.scale-140.png" />
     <Content Include="Assets\password.scale-240.png" />
+>>>>>>> Stashed changes
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />
     <Content Include="Assets\Square71x71Logo.scale-240.png" />
@@ -165,9 +165,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Fonts\Nunito-Bold.ttf" />
-    <Content Include="Assets\Fonts\Nunito-Light.ttf" />
-    <Content Include="Assets\Fonts\Nunito-Regular.ttf" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -177,9 +174,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
