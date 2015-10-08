@@ -43,42 +43,44 @@
               HorizontalAlignment="Center">
                 <Image Source="Assets/clock.png"
                 Height="200"
-                Width="200 "
+                Width="200"
                 HorizontalAlignment="Right"/>
                 <Image Source="Assets/pointers/hours.png"
                    Height="70"
-                   VerticalAlignment="Bottom"
-                   Margin="0 0 0 108">
+                   Width="14"
+                   VerticalAlignment="Top"
+                   Margin="0 53 0 0">
                     <Image.RenderTransform>
                         <RotateTransform x:Name="hourHand"
-                                     CenterX="0"
-                                     CenterY="70"
+                                     CenterX="7"
+                                     CenterY="66.6"
                                      Angle="0" />
                     </Image.RenderTransform>
                 </Image>
                 <Image Source="Assets/pointers/minutes.png"
                    Height="70"
-                   VerticalAlignment="Bottom"
-                   Margin="0 0 0 108">
+                   Width="14"
+                   VerticalAlignment="Top"
+                   Margin="0 53 0 0">
                     <Image.RenderTransform>
                         <RotateTransform x:Name="minuteHand"
-                                     CenterX="0"
-                                     CenterY="70"
+                                     CenterX="7"
+                                     CenterY="66.6"
                                      Angle="0" />
                     </Image.RenderTransform>
                 </Image>
                 <Image Source="Assets/pointers/seconds.png"
                    Height="70"
-                   VerticalAlignment="Bottom"
-                   Margin="0 0 0 108">
+                   Width="14"
+                   VerticalAlignment="Top"
+                   Margin="0 53 0 0">
                     <Image.RenderTransform>
                         <RotateTransform x:Name="secondHand"
-                                     CenterX="0"
-                                     CenterY="70"
+                                     CenterX="7"
+                                     CenterY="66.6"
                                      Angle="0" />
                     </Image.RenderTransform>
                 </Image>
-
             </Grid>
 
             <Grid Grid.Row="2">
