@@ -108,7 +108,7 @@ namespace WP_TT
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter.
-                if (!rootFrame.Navigate(typeof(HubPage), e.Arguments))
+                if (!rootFrame.Navigate(typeof(Login), e.Arguments))
                 {
                     throw new Exception("Failed to create initial page");
                 }

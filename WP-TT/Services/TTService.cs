@@ -32,11 +32,6 @@ namespace WP_TT.Services
             return ExtractDatetimeFromRemoteDatetimeHttpResponse(result);
         }
 
-        public bool login(string login, string password)
-        {
-            return true;
-        }
-
         public bool DoCheckIn(){
         // https://tt.ciandt.com/.net/index.ashx/GetClockDeviceInfo?deviceID=2
             return true;
