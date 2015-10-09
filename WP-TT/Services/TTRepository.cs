@@ -24,7 +24,17 @@ namespace WP_TT.Services
 
         private async Task<StorageFile> LocalFile()
         {
-            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(FILENAME, CreationCollisionOption.ReplaceExisting);
+            StorageFile file;
+
+            try
+            {
+                file = await ApplicationData.Current.LocalFolder.GetFileAsync(FILENAME);
+            }
+            catch
+            {
+                file = ApplicationData.Current.LocalFolder.CreateFileAsync(FILENAME, CreationCollisionOption.ReplaceExisting).GetResults();
+            }
+
             return file;
         }
 
