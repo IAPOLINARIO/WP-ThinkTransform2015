@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WP-TT")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Time Tracking")]
+[assembly: AssemblyDescription("Aplicativo para apontamento de horas")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WP-TT")]
+[assembly: AssemblyCompany("CI&T")]
+[assembly: AssemblyProduct("TT")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
