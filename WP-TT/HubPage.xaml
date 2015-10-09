@@ -102,15 +102,15 @@
                     </Grid>
                 </DataTemplate>
             </HubSection>
-            
-            <HubSection x:Uid="HubSectionProfile">
+
+            <HubSection x:Uid="HubSectionProfile" x:Name="HubSectionProfile">
                 <DataTemplate>
                     <StackPanel>
                         <Border 
                             Height="150"
                             Width="150"
                             CornerRadius="75"
-                            BorderBrush="Aqua"
+                            BorderBrush="#3FCED6"
                             BorderThickness="10">
                             <Ellipse
                             Width="130"
@@ -119,22 +119,56 @@
                                     <ImageBrush>
                                         <ImageBrush.ImageSource>
                                             <BitmapImage
-                                            UriSource="ms-appx:///Assets/logo_ciandt.png"/>
+                                            UriSource="{Binding photo}"/>
                                         </ImageBrush.ImageSource>
                                     </ImageBrush>
                                 </Ellipse.Fill>
                             </Ellipse>
                         </Border>
                         <TextBlock
-                            Text="Anderson Ribeiro"
+                            FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                            Margin="0, 30, 0, 0"
+                            Foreground="#FC183C"
+                            FontSize="18"
+                            Text="{Binding name}"
                             HorizontalAlignment="Center"
                             />
                         <TextBlock
-                            Text="Software Engineer"
-                            HorizontalAlignment="Center"/>
-                        <Button Click="LogoffButtonClicked"
+                            FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                            Foreground="#3FCED6"
+                            FontSize="18"
+                            Text="{Binding role}"
                             HorizontalAlignment="Center"
-                            Content="Logout"/>
+                            />
+                        <StackPanel
+                            Margin="0, 40, 0, 0"
+                            Width="Auto"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                            <TextBlock
+                                Margin="0, 0, 4, 0"
+                                FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                                Foreground="#3FCED6"
+                                FontSize="18"
+                                Text="Coach:"
+                                />
+                            <TextBlock
+                            FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                            Foreground="#3FCED6"
+                            FontSize="18"
+                            Text="{Binding mentor}"
+                            Width="Auto"
+                            />
+                        </StackPanel>
+                        
+                        <Button Click="LogoffButtonClicked"
+                            Margin="0, 30, 0, 0"
+                            HorizontalAlignment="Center"
+                            BorderThickness="0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="Assets/login.png" Stretch="Uniform"/>
+                            </Button.Background>
+                        </Button>
                     </StackPanel>
                     
                 </DataTemplate>

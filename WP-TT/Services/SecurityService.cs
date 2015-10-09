@@ -6,15 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Credentials;
+using Windows.Storage.Streams;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 using Windows.Web.Http.Headers;
+using WP_TT.Models;
 
 namespace WP_TT.Services
 {
     public class SecurityService
     {
-        private const string loginURL = "https://people.cit.com.br/profile/{0}/";
+        private const string loginURL = "https://people.cit.com.br/profile/{0}?format=json";
         private const string photoURL = "https://people.cit.com.br/photos/{0}.jpg";
         private const string VAULT_RESOURCE = "TTCredentials";
         public static async Task<bool> tryLogin(string username, string password){
@@ -22,7 +24,7 @@ namespace WP_TT.Services
             Boolean success = false;
             try
             {
-                Uri uri = new Uri(String.Format(photoURL, username));
+                Uri uri = new Uri(String.Format(loginURL, username));
                 HttpBaseProtocolFilter filter = new HttpBaseProtocolFilter();
                 filter.AllowUI = false;
 
@@ -32,14 +34,27 @@ namespace WP_TT.Services
                        username,
                        password);
 
-                HttpClient httpClient = new HttpClient(filter);
+                var httpClient = new HttpClient(filter);
 
-                HttpResponseMessage response = await httpClient.GetAsync(uri);
+                var response = await httpClient.GetAsync(uri);
                 response.EnsureSuccessStatusCode();
+
+                var jsonString = response.Content.ToString();
+                var result = JsonConvert.DeserializeAnonymousType(jsonString, new { personal_info = new PersonalInfo() });
+                var personalPhotoUrl = String.Format(photoURL, username);
+                var photoHttpResponse = await httpClient.GetAsync(new Uri(personalPhotoUrl));
+                
+                var repository = new PersonalInfoRespository();
+                IBuffer buffer = await photoHttpResponse.Content.ReadAsBufferAsync();
+                String photo = await repository.SavePhotoAsync(buffer, username);
+                result.personal_info.photo = photo;
+                await repository.SaveAsync(result.personal_info);
 
                 var vault = new PasswordVault();
                 vault.Add(new PasswordCredential(VAULT_RESOURCE, username, password));
                 success = true;
+
+               
                 
                 
             }

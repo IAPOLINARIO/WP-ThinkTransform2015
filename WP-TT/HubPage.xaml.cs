@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using WP_TT.Services;
+using WP_TT.Models;
 
 namespace WP_TT
 {
@@ -65,6 +66,12 @@ namespace WP_TT
             if (!SecurityService.IsLogged)
             {
                 GoToLoginPage();
+            }
+            else
+            {
+                var repository = new PersonalInfoRespository();
+                var personalInfo = await repository.LoadAsync();
+                HubSectionProfile.DataContext = personalInfo;
             }
         }
 
