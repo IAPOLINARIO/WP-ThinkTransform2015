@@ -117,6 +117,9 @@
     <Content Include="Assets\login_press.png" />
     <Content Include="Assets\login_press.scale-140.png" />
     <Content Include="Assets\login_press.scale-240.png" />
+    <Content Include="Assets\logout.png" />
+    <Content Include="Assets\logout.scale-140.png" />
+    <Content Include="Assets\logout.scale-240.png" />
     <Content Include="Assets\logo_ciandt.png" />
     <Content Include="Assets\logo_ciandt.scale-140.png" />
     <Content Include="Assets\logo_ciandt.scale-240.png" />
