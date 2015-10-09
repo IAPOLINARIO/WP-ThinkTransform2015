@@ -74,53 +74,8 @@ namespace WP_TT
                 var personalInfo = await repository.LoadAsync();
                 HubSectionProfile.DataContext = personalInfo;
 
-                var ttRepository = new TTRepository();
-                var storedHistoricalChecks = await ttRepository.FindAllByUserNameAsync(personalInfo.login);
-
-                int daysToCheck;
-                if (DateTime.Now.Day > 20)
-                {  // do dia 21 ao 20 do próximo mês
-                    daysToCheck = DateTime.Now.Day - 20;
-                    
-                }
-                else
-                { // do dia 21 do mês passado ao dia 20 do mês atual
-                    var day20 =  new DateTime(DateTime.Now.Year, DateTime.Now.Month, 20).AddMonths(-1);
-                    daysToCheck = (int) DateTime.Now.Subtract(day20).TotalDays;
-                }
-
-                var historicalChecks = new List<TTCheck>(storedHistoricalChecks);
-                for (var i = 0; i < daysToCheck; i++)
-                {
-                    var day = DateTime.Now.AddDays(-i);
-                    if ( ! day.IsWeekend() && ! storedHistoricalChecks.Any( s => s.DateTime.Year == day.Year &&
-                        s.DateTime.Month == day.Month && 
-                        s.DateTime.Day == day.Day
-                        ))
-                    {
-                        historicalChecks.Add(new TTCheck() { DateTime = day, UserName = String.Empty });
-                    }
-                }
-
-                var historicalChecksGroupedByMonthAndYear = historicalChecks
-                    .OrderByDescending(s => s.DateTime)
-                    .GroupBy(y => y.DateTime.Month.ToString() + y.DateTime.Year.ToString())
-                    .Select(y => new
-                    {
-                        month = y.First().DateTime,
-                        checksGroupedByDay = y.GroupBy(s => s.DateTime.Day)
-                            .Select(d => new
-                            {
-                                day = d.First().DateTime,
-                                color = (d.First().UserName == String.Empty) ? "#FC183C" : (d.Count() % 2 == 0 ? "#3FCED6" : "#FFD05F"),
-                                collection = (d.First().UserName == String.Empty) ? null : d.Select(h => new
-                                {
-                                    hour = h.DateTime,
-                                    color = d.Count() % 2 == 0 ? "#3FCED6" : "#FFD05F"
-                                })
-                            })
-                    })
-                    .ToArray();
+                var builder =  new HistoricalChecksArrayBuilder();
+                var historicalChecksGroupedByMonthAndYear = await builder.build(personalInfo);
                 HubSectionHistoricalChecks.DataContext = historicalChecksGroupedByMonthAndYear;
             }
         }
