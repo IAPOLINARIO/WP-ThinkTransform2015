@@ -45,17 +45,10 @@ namespace WP_TT.Services
 
         public async Task<PersonalInfo> LoadAsync()
         {
-            try
-            {
-                var file = await LocalFile();
-                var jsonString = await FileIO.ReadTextAsync(file);
-                var checks = JsonConvert.DeserializeObject<PersonalInfo>(jsonString);
-                return checks;
-            }
-            catch
-            {
-                return null;
-            }
+            var file = await LocalFile();
+            var jsonString = await FileIO.ReadTextAsync(file);
+            var checks = JsonConvert.DeserializeObject<PersonalInfo>(jsonString);
+            return checks;
         }
     }
 }
