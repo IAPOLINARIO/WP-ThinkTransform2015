@@ -14,6 +14,7 @@
             <Grid>
             </Grid>
         </DataTemplate>
+        <local:DateFormatConverter x:Name="DateFormat"/>
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot">
@@ -171,6 +172,95 @@
                         </Button>
                     </StackPanel>
                     
+                </DataTemplate>
+            </HubSection>
+
+
+
+
+
+
+
+            <HubSection x:Name="HubSectionHistoricalChecks">
+                <DataTemplate>
+                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Visible" VerticalScrollMode="Enabled">
+                        <ListView ItemsSource="{Binding}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel  Orientation="Vertical">
+                                        <Border BorderThickness="0,0,0,4" BorderBrush="#3FCED6">
+                                            <TextBlock
+                                            HorizontalAlignment="Left"
+                                            Foreground="#FFD05F"
+                                            FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                                            FontSize="18">
+                                                <TextBlock.Inlines>
+                                                    <Run Text="{Binding month, Converter={StaticResource DateFormat}, ConverterParameter='MMMM'}" FontSize="32"/>
+                                                    <Run Text="{Binding month, Converter={StaticResource DateFormat}, ConverterParameter='yyyy'}" FontSize="40"/>
+                                                </TextBlock.Inlines>
+                                            </TextBlock>
+                                        </Border>
+                                        <ListView ItemsSource="{Binding checksGroupedByDay}">
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="ListViewItem">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border BorderThickness="0,3,0,0" BorderBrush="#3FCED6">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock
+                                                                FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                                                                HorizontalAlignment="Left"
+                                                                Foreground="{Binding color}">
+                                                                <TextBlock.Inlines>
+                                                                    <Run Text="{Binding day, Converter={StaticResource DateFormat}, ConverterParameter='dd'}" 
+                                                                         FontSize="48"/>
+                                                                    <Run
+                                                                        Text="{Binding day, Converter={StaticResource DateFormat}, ConverterParameter='ddd'}" 
+                                                                        FontSize="36"/>
+                                                                </TextBlock.Inlines>
+                                                            </TextBlock>
+                                                            <ListView ItemsSource="{Binding collection}" Grid.Column="1">
+                                                                <ListView.ItemContainerStyle>
+                                                                    <Style TargetType="ListViewItem">
+                                                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                                    </Style>
+                                                                </ListView.ItemContainerStyle>
+                                                                <ListView.ItemTemplate>
+                                                                    <DataTemplate>
+                                                                        <StackPanel Orientation="Vertical">
+                                                                            <TextBlock
+                                                                                FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                                                                                FontSize="32"
+                                                                                HorizontalAlignment="Right"
+                                                                                Foreground="{Binding color}"
+                                                                                Text="{Binding Path=hour, Converter={StaticResource DateFormat}, ConverterParameter='HH:mm'}"/>
+                                                                        </StackPanel>
+                                                                    </DataTemplate>
+                                                                </ListView.ItemTemplate>
+                                                            </ListView>
+                                                        </Grid>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
                 </DataTemplate>
             </HubSection>
         </Hub>

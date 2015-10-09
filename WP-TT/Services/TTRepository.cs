@@ -34,19 +34,24 @@ namespace WP_TT.Services
             {
                 var file = await LocalFile();
                 var jsonString = await FileIO.ReadTextAsync(file);
-                var checks = JsonConvert.DeserializeObject<List<TTCheck>>(jsonString);
-                return checks;
+                if (jsonString != String.Empty)
+                {
+                    var checks = JsonConvert.DeserializeObject<List<TTCheck>>(jsonString);
+                    return checks;
+                }
             }
             catch
             {
-                return Enumerable.Empty<TTCheck>();
             }
+
+            return Enumerable.Empty<TTCheck>();
         }
 
         public async Task<IEnumerable<TTCheck>> FindAllByUserNameAsync(string userName)
         {
             var checks = await FindAllAsync();
             var checksByUserName = checks.Where(s => s.UserName == userName);
+
             return checksByUserName.ToArray();
         }
     }
