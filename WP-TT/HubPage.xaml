@@ -119,7 +119,7 @@
                                     <ImageBrush>
                                         <ImageBrush.ImageSource>
                                             <BitmapImage
-                                            UriSource="ms-appx:///Assets/logo_ciandt.png"/>
+                                            UriSource="{Binding photo}"/>
                                         </ImageBrush.ImageSource>
                                     </ImageBrush>
                                 </Ellipse.Fill>

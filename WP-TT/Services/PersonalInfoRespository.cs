@@ -36,6 +36,13 @@ namespace WP_TT.Services
             await FileIO.WriteTextAsync(file, jsonString);
         }
 
+        public async Task<string> SavePhotoAsync(Windows.Storage.Streams.IBuffer buffer, string username)
+        {
+            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(username + ".jpg", CreationCollisionOption.ReplaceExisting);
+            await FileIO.WriteBufferAsync(file, buffer);
+            return file.Path;
+        }
+
         public async Task<PersonalInfo> LoadAsync()
         {
             try

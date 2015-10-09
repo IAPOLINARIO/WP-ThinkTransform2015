@@ -22,5 +22,7 @@ namespace WP_TT.Models
         public object contact3 { get; set; }
         public string role { get; set; }
         public object own_words { get; set; }
+
+        public string photo { get; set; }
     }
 }
