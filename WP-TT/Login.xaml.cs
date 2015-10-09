@@ -15,6 +15,10 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using WP_TT.Services;
 using Windows.UI.Popups;
+using System.Windows.Input;
+using Windows.UI.Core;
+using Windows.System;
+
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
 namespace WP_TT
@@ -73,6 +77,18 @@ namespace WP_TT
                 message.ShowAsync();
             }
 
+        }
+
+        private void TxtName_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+                passwordTextBox.Focus(FocusState.Keyboard);
+        }
+
+        private void TxtPassword_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+                loginButton.Focus(FocusState.Keyboard);
         }
     }
 }
