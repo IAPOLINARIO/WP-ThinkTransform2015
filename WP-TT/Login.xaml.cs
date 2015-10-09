@@ -58,12 +58,14 @@ namespace WP_TT
         private async void loginButton_Click(object sender, RoutedEventArgs e)
         {
 
-            /*ImageBrush imageBrush = new ImageBrush();
-            Uri uri = new Uri(@"Assets/login_press.png", UriKind.Relative);
-            imageBrush.ImageSource = new BitmapImage(uri);
-            loginButton.Background = imageBrush;*/
+            await login();
+
+        }
+
+        private async System.Threading.Tasks.Task login()
+        {
             progressRing.IsActive = true;
-            
+
             bool result = await SecurityService.tryLogin(usernameTextBox.Text, passwordTextBox.Password);
             progressRing.IsActive = false;
             if (result)
@@ -73,10 +75,9 @@ namespace WP_TT
             else
             {
                 MessageDialog message = new MessageDialog("Usuário ou senha inválidos");
-                
+
                 message.ShowAsync();
             }
-
         }
 
         private void TxtName_KeyDown(object sender, KeyRoutedEventArgs e)
@@ -85,10 +86,10 @@ namespace WP_TT
                 passwordTextBox.Focus(FocusState.Keyboard);
         }
 
-        private void TxtPassword_KeyDown(object sender, KeyRoutedEventArgs e)
+        private async void TxtPassword_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == VirtualKey.Enter)
-                loginButton.Focus(FocusState.Keyboard);
+                await this.login();
         }
     }
 }
