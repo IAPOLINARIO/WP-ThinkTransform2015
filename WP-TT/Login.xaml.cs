@@ -15,6 +15,10 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using WP_TT.Services;
 using Windows.UI.Popups;
+using System.Windows.Input;
+using Windows.UI.Core;
+using Windows.System;
+
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
 namespace WP_TT
@@ -54,12 +58,14 @@ namespace WP_TT
         private async void loginButton_Click(object sender, RoutedEventArgs e)
         {
 
-            /*ImageBrush imageBrush = new ImageBrush();
-            Uri uri = new Uri(@"Assets/login_press.png", UriKind.Relative);
-            imageBrush.ImageSource = new BitmapImage(uri);
-            loginButton.Background = imageBrush;*/
+            await login();
+
+        }
+
+        private async System.Threading.Tasks.Task login()
+        {
             progressRing.IsActive = true;
-            
+
             bool result = await SecurityService.tryLogin(usernameTextBox.Text, passwordTextBox.Password);
             progressRing.IsActive = false;
             if (result)
@@ -69,10 +75,21 @@ namespace WP_TT
             else
             {
                 MessageDialog message = new MessageDialog("Usuário ou senha inválidos");
-                
+
                 message.ShowAsync();
             }
+        }
 
+        private void TxtName_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+                passwordTextBox.Focus(FocusState.Keyboard);
+        }
+
+        private async void TxtPassword_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+                await this.login();
         }
     }
 }

@@ -169,16 +169,53 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <ImageBrush x:Key="PhoneBackgroundLoginBrush" ImageSource="Assets/login.png" Stretch="Uniform"/>
+        <ImageBrush x:Key="PhoneBackgroundLoginPressBrush" ImageSource="Assets/login_press.png" Stretch="Uniform"/>
+
+        <Style TargetType="Button" x:Key="buttonTemplate">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="Transparent">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ButtonBackground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneBackgroundLoginBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver"/>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ButtonBackground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneBackgroundLoginPressBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="ButtonBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="0" Margin="{StaticResource PhoneTouchTargetOverhang}">
+                                <ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Page.Resources>
-    
-    
-    
-    
+
+
+
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        
+
         <Grid>
 
             <Grid.Background>
@@ -276,6 +313,7 @@
 
 
                 <TextBox Background="Transparent"
+                     KeyDown="TxtName_KeyDown"
                      Style="{StaticResource TransparentStyle}" 
                      x:Name="usernameTextBox"
                      Grid.Column="1"
@@ -288,6 +326,7 @@
                      FontFamily="/Assets/Fonts/Nunito-Bold.otf#Nunito"/>
 
                 <PasswordBox Background="Transparent"
+                     KeyDown="TxtPassword_KeyDown"
                      Style="{StaticResource TransparentPasswordBoxStyle}" 
                      x:Name="passwordTextBox"
                      Grid.Column="1"
@@ -307,11 +346,8 @@
                     VerticalAlignment="Stretch"
                     BorderThickness="0"
                     Margin="20,20,20,20"
-                    Click="loginButton_Click">
-                    <Button.Background>
-                        <ImageBrush ImageSource="Assets/login.png" Stretch="Uniform"/>
-                    </Button.Background>
-                </Button>
+                    Click="loginButton_Click"
+                    Style="{StaticResource buttonTemplate}"/>
             </Grid>
         </Grid>
         <ProgressRing x:Name="progressRing" IsActive="False"/>
