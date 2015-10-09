@@ -82,14 +82,23 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HoldButton.xaml.cs">
+      <DependentUpon>HoldButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageExtensions.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="DigitalWatchControl.xaml.cs">
+      <DependentUpon>DigitalWatchControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HubPage.xaml.cs">
       <DependentUpon>HubPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\SyncDate.cs" />
     <Compile Include="Models\TTCheck.cs" />
+    <Compile Include="PieSlice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\TTClient.cs" />
     <Compile Include="Login.xaml.cs">
@@ -155,6 +164,14 @@
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="DigitalWatchControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HoldButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="HubPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -20,6 +20,7 @@ using WP_TT.Services;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.Security.Credentials;
+using WP_TT.Models;
 
 // The Hub Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
@@ -32,8 +33,6 @@ namespace WP_TT
     {
         private TransitionCollection transitions;
 
-        public static long Gap { get; set; }
-
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -43,18 +42,6 @@ namespace WP_TT
             this.RequestedTheme = ApplicationTheme.Light;
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
-
-            var service = new WP_TT.Services.TTClient();
-            const string VAULT_RESOURCE = "TTCredentials";
-            service.RemoteDatetimeAsync().ContinueWith(t =>
-            {
-                if (t.IsCompleted)
-                {
-                    DateTime serverTime = t.Result;
-                    App.Gap = serverTime.Subtract(DateTime.Now).Ticks;
-                }
-            });
-
         }
 
         /// <summary>

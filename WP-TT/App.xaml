@@ -2,10 +2,12 @@
     x:Class="WP_TT.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WP_TT">
+    xmlns:local="using:WP_TT"
+    xmlns:models="using:WP_TT.Models">
 
     <Application.Resources>
         <ResourceDictionary>
+            <models:SyncDate x:Key="SyncDate"/>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Default">
                     <ImageBrush x:Key="HubBackgroundImageBrush" ImageSource="Assets/bg_clock.png" Stretch="UniformToFill" AlignmentY="Top"/>
@@ -14,7 +16,6 @@
                     <ImageBrush x:Key="HubBackgroundImageBrush" ImageSource="{x:Null}"/>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

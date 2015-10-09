@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using WP_TT.Services;
 using Windows.UI.Popups;
+using WP_TT.Models;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
 namespace WP_TT
@@ -24,19 +25,17 @@ namespace WP_TT
     /// </summary>
     public sealed partial class Login : Page
     {
-        private DispatcherTimer timer = new DispatcherTimer();
 
         public Login()
         {
             this.InitializeComponent();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += timer_Tick;
-            timer.Start();
+
+            this.GetSyncDate().PropertyChanged += SyncDate_PropertyChanged;
         }
 
-        void timer_Tick(object sender, object e)
+        private void SyncDate_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            DateTime date = DateTime.Now.Add(TimeSpan.FromTicks(App.Gap));
+            DateTime date = ((SyncDate)sender).Value;
             secondHand.Angle = date.Second * 6;
             minuteHand.Angle = date.Minute * 6;
             hourHand.Angle = (date.Hour * 30) + (date.Minute * 0.5);

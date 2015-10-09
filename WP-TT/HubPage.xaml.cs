@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using WP_TT.Services;
+using WP_TT.Models;
 
 namespace WP_TT
 {
@@ -26,9 +27,6 @@ namespace WP_TT
     {
         private readonly NavigationHelper navigationHelper;
         private readonly ResourceLoader resourceLoader = ResourceLoader.GetForCurrentView("Resources");
-        private DispatcherTimer timer = new DispatcherTimer();
-
-        private long gap;
 
         public HubPage()
         {
@@ -42,14 +40,12 @@ namespace WP_TT
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += timer_Tick;
-            timer.Start();
+            this.GetSyncDate().PropertyChanged += SyncDate_PropertyChanged;
         }
 
-        void timer_Tick(object sender, object e)
+        private void SyncDate_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            DateTime date = DateTime.Now.Add(TimeSpan.FromTicks(App.Gap));
+            DateTime date = ((SyncDate)sender).Value;
             secondHand.Angle = date.Second * 6;
             minuteHand.Angle = date.Minute * 6;
             hourHand.Angle = (date.Hour * 30) + (date.Minute * 0.5);
@@ -96,5 +92,6 @@ namespace WP_TT
             SecurityService.logoff();
             GoToLoginPage();
         }
+
     }
 }

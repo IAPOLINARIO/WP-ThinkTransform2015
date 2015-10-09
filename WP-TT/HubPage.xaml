@@ -2,7 +2,7 @@
     x:Class="WP_TT.HubPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WP_TT"
+    xmlns:local="using:WP_TT"    
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     RequestedTheme="Light"
@@ -22,11 +22,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Image Source="Assets/logo_ciandt.png"
-                Grid.Row="0"
-                Margin="15 -120 0 0"
-                Width="73"
-                Height="38"
-                HorizontalAlignment="Left"/>
+               Grid.Row="0"
+               Margin="15 -120 0 0"
+               Width="73"
+               Height="38"
+               HorizontalAlignment="Left"/>
         <StackPanel Grid.Row="0"
                     VerticalAlignment="Center"
                     Margin="0 55">
@@ -90,7 +90,19 @@
             <HubSection x:Uid="HubSectionCheckin">
                 <DataTemplate>
                     <Grid>
-
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <local:DigitalWatchControl
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Center"
+                            DataContext="{StaticResource SyncDate}"
+                            DateTime="{Binding Value}"/>
+                        <local:HoldButton
+                            Grid.Row="1"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
             </HubSection>
@@ -98,7 +110,6 @@
             <HubSection x:Uid="HubSectionHistory">
                 <DataTemplate>
                     <Grid>
-                        
                     </Grid>
                 </DataTemplate>
             </HubSection>
