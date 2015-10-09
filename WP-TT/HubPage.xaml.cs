@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using WP_TT.Services;
 using WP_TT.Models;
+using System.Collections.ObjectModel;
 
 namespace WP_TT
 {
@@ -61,6 +62,16 @@ namespace WP_TT
             if (!SecurityService.IsLogged)
             {
                 GoToLoginPage();
+            }
+            else
+            {
+                var repository = new PersonalInfoRespository();
+                var personalInfo = await repository.LoadAsync();
+                HubSectionProfile.DataContext = personalInfo;
+
+                var builder =  new HistoricalChecksArrayBuilder();
+                var historicalChecksGroupedByMonthAndYear = await builder.build(personalInfo);
+                HubSectionHistoricalChecks.DataContext = historicalChecksGroupedByMonthAndYear;
             }
         }
 

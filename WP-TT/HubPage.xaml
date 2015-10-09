@@ -14,6 +14,42 @@
             <Grid>
             </Grid>
         </DataTemplate>
+        <local:DateFormatConverter x:Name="DateFormat"/>
+
+        <ImageBrush x:Key="PhoneBackgroundLogoutBrush" ImageSource="Assets/logout.png" Stretch="Uniform"/>
+
+        <Style TargetType="Button" x:Key="buttonTemplate">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="Transparent">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ButtonBackground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneBackgroundLogoutBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver"/>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ButtonBackground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneBackgroundLogoutBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="ButtonBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="0" Margin="{StaticResource PhoneTouchTargetOverhang}">
+                                <ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot">
@@ -113,15 +149,15 @@
                     </Grid>
                 </DataTemplate>
             </HubSection>
-            
-            <HubSection x:Uid="HubSectionProfile">
+
+            <HubSection x:Uid="HubSectionProfile" x:Name="HubSectionProfile">
                 <DataTemplate>
                     <StackPanel>
                         <Border 
                             Height="150"
                             Width="150"
                             CornerRadius="75"
-                            BorderBrush="Aqua"
+                            BorderBrush="#3FCED6"
                             BorderThickness="10">
                             <Ellipse
                             Width="130"
@@ -130,24 +166,144 @@
                                     <ImageBrush>
                                         <ImageBrush.ImageSource>
                                             <BitmapImage
-                                            UriSource="ms-appx:///Assets/logo_ciandt.png"/>
+                                            UriSource="{Binding photo}"/>
                                         </ImageBrush.ImageSource>
                                     </ImageBrush>
                                 </Ellipse.Fill>
                             </Ellipse>
                         </Border>
                         <TextBlock
-                            Text="Anderson Ribeiro"
+                            FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                            Margin="0, 30, 0, 0"
+                            Foreground="#FC183C"
+                            FontSize="18"
+                            Text="{Binding name}"
                             HorizontalAlignment="Center"
                             />
                         <TextBlock
-                            Text="Software Engineer"
-                            HorizontalAlignment="Center"/>
-                        <Button Click="LogoffButtonClicked"
+                            FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                            Foreground="#3FCED6"
+                            FontSize="18"
+                            Text="{Binding role}"
                             HorizontalAlignment="Center"
-                            Content="Logout"/>
+                            />
+                        <StackPanel
+                            Margin="0, 40, 0, 0"
+                            Width="Auto"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                            <TextBlock
+                                Margin="0, 0, 4, 0"
+                                FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                                Foreground="#3FCED6"
+                                FontSize="18"
+                                Text="Coach:"
+                                />
+                            <TextBlock
+                            FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                            Foreground="#3FCED6"
+                            FontSize="18"
+                            Text="{Binding mentor}"
+                            Width="Auto"
+                            />
+                        </StackPanel>
+                        
+                        <Button Click="LogoffButtonClicked"
+                            Margin="0, 30, 0, 0"
+                            HorizontalAlignment="Center"
+                            BorderThickness="0"
+                            Style="{StaticResource buttonTemplate}"/>
                     </StackPanel>
                     
+                </DataTemplate>
+            </HubSection>
+
+
+
+
+
+
+
+            <HubSection x:Name="HubSectionHistoricalChecks">
+                <DataTemplate>
+                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Visible" VerticalScrollMode="Enabled">
+                        <ListView ItemsSource="{Binding}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel  Orientation="Vertical">
+                                        <Border BorderThickness="0,0,0,4" BorderBrush="#3FCED6">
+                                            <TextBlock
+                                            HorizontalAlignment="Left"
+                                            Foreground="#FFD05F"
+                                            FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                                            FontSize="18">
+                                                <TextBlock.Inlines>
+                                                    <Run Text="{Binding month, Converter={StaticResource DateFormat}, ConverterParameter='MMMM'}" FontSize="32"/>
+                                                    <Run Text="{Binding month, Converter={StaticResource DateFormat}, ConverterParameter='yyyy'}" FontSize="40"/>
+                                                </TextBlock.Inlines>
+                                            </TextBlock>
+                                        </Border>
+                                        <ListView ItemsSource="{Binding checksGroupedByDay}">
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="ListViewItem">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border BorderThickness="0,3,0,0" BorderBrush="#3FCED6">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock
+                                                                FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                                                                HorizontalAlignment="Left"
+                                                                Foreground="{Binding color}">
+                                                                <TextBlock.Inlines>
+                                                                    <Run Text="{Binding day, Converter={StaticResource DateFormat}, ConverterParameter='dd'}" 
+                                                                         FontSize="48"/>
+                                                                    <Run
+                                                                        Text="{Binding day, Converter={StaticResource DateFormat}, ConverterParameter='ddd'}" 
+                                                                        FontSize="36"/>
+                                                                </TextBlock.Inlines>
+                                                            </TextBlock>
+                                                            <ListView ItemsSource="{Binding collection}" Grid.Column="1">
+                                                                <ListView.ItemContainerStyle>
+                                                                    <Style TargetType="ListViewItem">
+                                                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                                    </Style>
+                                                                </ListView.ItemContainerStyle>
+                                                                <ListView.ItemTemplate>
+                                                                    <DataTemplate>
+                                                                        <StackPanel Orientation="Vertical">
+                                                                            <TextBlock
+                                                                                FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                                                                                FontSize="32"
+                                                                                HorizontalAlignment="Right"
+                                                                                Foreground="{Binding color}"
+                                                                                Text="{Binding Path=hour, Converter={StaticResource DateFormat}, ConverterParameter='HH:mm'}"/>
+                                                                        </StackPanel>
+                                                                    </DataTemplate>
+                                                                </ListView.ItemTemplate>
+                                                            </ListView>
+                                                        </Grid>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
                 </DataTemplate>
             </HubSection>
         </Hub>
