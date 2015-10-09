@@ -132,7 +132,6 @@
                             FontSize="18"
                             Text="{Binding name}"
                             HorizontalAlignment="Center"
-                            x:Name="TextName"
                             />
                         <TextBlock
                             FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
@@ -140,17 +139,28 @@
                             FontSize="18"
                             Text="{Binding role}"
                             HorizontalAlignment="Center"
-                            x:Name="TextRole"
                             />
-                        <TextBlock
-                            FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                        <StackPanel
                             Margin="0, 40, 0, 0"
+                            Width="Auto"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                            <TextBlock
+                                Margin="0, 0, 4, 0"
+                                FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                                Foreground="#3FCED6"
+                                FontSize="18"
+                                Text="Coach:"
+                                />
+                            <TextBlock
+                            FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
                             Foreground="#3FCED6"
                             FontSize="18"
                             Text="{Binding mentor}"
-                            HorizontalAlignment="Center"
-                            x:Name="TextMentor"
+                            Width="Auto"
                             />
+                        </StackPanel>
+                        
                         <Button Click="LogoffButtonClicked"
                             Margin="0, 30, 0, 0"
                             HorizontalAlignment="Center"
