@@ -65,13 +65,22 @@ namespace WP_TT
             }
             else
             {
-                var repository = new PersonalInfoRespository();
-                var personalInfo = await repository.LoadAsync();
-                HubSectionProfile.DataContext = personalInfo;
+                try
+                {
+                    var repository = new PersonalInfoRespository();
+                    var personalInfo = await repository.LoadAsync();
+                    HubSectionProfile.DataContext = personalInfo;
 
-                var builder =  new HistoricalChecksArrayBuilder();
-                var historicalChecksGroupedByMonthAndYear = await builder.build(personalInfo);
-                HubSectionHistoricalChecks.DataContext = historicalChecksGroupedByMonthAndYear;
+                    var builder = new HistoricalChecksArrayBuilder();
+                    var historicalChecksGroupedByMonthAndYear = await builder.build(personalInfo);
+                    HubSectionHistoricalChecks.DataContext = historicalChecksGroupedByMonthAndYear;
+                }
+                catch
+                {
+                    SecurityService.logoff();
+                    GoToLoginPage();
+                }
+                
             }
         }
 
