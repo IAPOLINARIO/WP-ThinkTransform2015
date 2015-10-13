@@ -38,7 +38,7 @@ namespace WP_TT
                 buttonTopText.Text = string.Empty;
                 buttonBottomText.Text = string.Empty;
                 buttonTopText.Text = "CHECKED";
-                buttonBottomText.Text = DateTime.Now.ToString();
+                buttonBottomText.Text = DateTime.Now.ToString("HH:mm:ss");
             }
             startAnimation.Stop();
             started = false;

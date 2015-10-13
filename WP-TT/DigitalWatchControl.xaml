@@ -14,21 +14,21 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
                        FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
                        Foreground="#ffd05f"
                        x:Name="txtHours">
             <TextBlock.Inlines>
-                <Run FontSize="120" Text="{Binding Path=DateTime, ElementName=userControl, Converter={StaticResource Converter}, ConverterParameter=0}"/>
-                <Run FontSize="50" Text="{Binding Path=DateTime, ElementName=userControl, Converter={StaticResource Converter}, ConverterParameter=1}"/>
+                <Run FontSize="90" Text="{Binding Path=DateTime, ElementName=userControl, Converter={StaticResource Converter}, ConverterParameter=0}"/>
+                <Run FontSize="30" Text="{Binding Path=DateTime, ElementName=userControl, Converter={StaticResource Converter}, ConverterParameter=1}"/>
             </TextBlock.Inlines>
         </TextBlock>
         <TextBlock                    
                    Text="{Binding Path=DateTime, ElementName=userControl, Converter={StaticResource Converter}, ConverterParameter=2}"
-                   Margin="0 130 0 0"
-                   FontSize="40"
+                   Margin="0 100 0 0"
+                   FontSize="35"
                    Foreground="#A4F1F6"
                    FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
                    x:Name="txtDate"

@@ -13,9 +13,11 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="300" Background="{TemplateBinding Background}"
+                        <Border CornerRadius="90" 
+                                Background="{TemplateBinding Background}"
                                 BorderThickness="1">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -31,7 +33,7 @@
                 EnableDependentAnimation="True"
                 AutoReverse="False"/>
         </Storyboard>
-        
+
         <Storyboard x:Name="stopAnimation">
             <DoubleAnimation
                 To="0"
@@ -43,35 +45,31 @@
         </Storyboard>
     </UserControl.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
         <Button HorizontalAlignment="Center" 
                 Style="{StaticResource RoundButtonTemplate}"
                 VerticalAlignment="Center" 
-                Width="200" 
-                Height="200" 
-                FontSize="35" 
-                Background="#3FCED6"
-                UseLayoutRounding="True" />
+                Width="150" 
+                Height="150" 
+                Background="#3FCED6"/>
 
-        <local:PieSlice x:Name="canvasCircle" Fill="Red" StartAngle="0" Angle="0" Radius="105"/>
+        <local:PieSlice x:Name="canvasCircle" 
+                        Fill="Red" 
+                        StartAngle="0" Angle="0" 
+                        Radius="70"/>
 
         <Button VerticalAlignment="Center"
                 Style="{StaticResource RoundButtonTemplate}" 
                 Foreground="#3FCED6" 
-                Height="150" 
-                Background="#A4F1F6"
-                UseLayoutRounding="True" 
+                Height="115" 
+                Width="115"
+                Background="#A4F1F6" 
                 x:Name="btnCheckin"
                 PointerEntered="btnCheckin_PointerEntered"
                 PointerExited="btnCheckin_PointerReleased"
-                HorizontalAlignment="Center"
-                Width="150">
+                HorizontalAlignment="Center">
             <StackPanel Orientation="Vertical">
-                <TextBlock FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito" HorizontalAlignment="Center" x:Name="buttonTopText" FontSize="18" VerticalAlignment="Center" Text="HOLD TO" TextAlignment="Center"/>
-                <TextBlock FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito" HorizontalAlignment="Center" x:Name="buttonBottomText" FontSize="28" VerticalAlignment="Center" Text="CHECKIN" TextAlignment="Center"/>
+                <TextBlock FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito" HorizontalAlignment="Center" x:Name="buttonTopText" FontSize="15" VerticalAlignment="Center" Text="HOLD TO" TextAlignment="Center"/>
+                <TextBlock FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito" HorizontalAlignment="Center" x:Name="buttonBottomText" FontSize="20" VerticalAlignment="Center" Text="CHECKIN" TextAlignment="Center"/>
             </StackPanel>
         </Button>
     </Grid>
