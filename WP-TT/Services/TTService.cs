@@ -9,16 +9,21 @@ namespace WP_TT.Services
 {
     class TTService
     {
-        public async Task<DateTime?> CheckInOrOutAsync(string userName, string password)
+        public async Task<DateTime?> CheckInOrOutAsync()
         {
             var client = new TTClient();
-            var checkinDatetime = await client.DoCheckInOrOutAsync(userName, password);
+                        
+#if DEBUG
+            var checkinDatetime = (DateTime?)DateTime.Now;
+#else
+            var checkinDatetime = await client.DoCheckInOrOutAsync(SecurityService.getCredential().Item1, SecurityService.getCredential().Item2);
+#endif
 
             if (checkinDatetime.HasValue)
             {
                 var repository = new TTRepository();
                 var check = new TTCheck();
-                check.UserName = userName;
+                check.UserName = SecurityService.getCredential().Item1;
                 check.DateTime = checkinDatetime.Value;
                 await repository.SaveAsync(check);
             }

@@ -102,6 +102,5 @@ namespace WP_TT
             SecurityService.logoff();
             GoToLoginPage();
         }
-
     }
 }

@@ -14,9 +14,11 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using WP_TT.Services;
 
 namespace WP_TT
 {
+
     public sealed partial class HoldButton : UserControl
     {
         public HoldButton()
@@ -31,14 +33,21 @@ namespace WP_TT
             stopAnimation.Stop();
         }
 
-        private void StoryBoard_Completed(object sender, object e)
+        private async void StoryBoard_Completed(object sender, object e)
         {
             if (started)
             {
-                buttonTopText.Text = string.Empty;
-                buttonBottomText.Text = string.Empty;
-                buttonTopText.Text = "CHECKED";
-                buttonBottomText.Text = DateTime.Now.ToString("HH:mm:ss");
+                TTService service = new TTService();
+
+                DateTime? date = await service.CheckInOrOutAsync();
+
+                if (date.HasValue)
+                {
+                    buttonTopText.Text = string.Empty;
+                    buttonBottomText.Text = string.Empty;
+                    buttonTopText.Text = "CHECKED";
+                    buttonBottomText.Text = ((DateTime)date).ToString("HH:mm:ss");
+                }
             }
             startAnimation.Stop();
             started = false;
