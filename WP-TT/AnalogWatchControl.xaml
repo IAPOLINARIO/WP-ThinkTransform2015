@@ -1,0 +1,58 @@
+﻿<UserControl
+    x:Class="WP_TT.AnalogWatchControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WP_TT"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    x:Name="userControl">
+
+    <UserControl.Resources>
+        <local:AnalogWatchConverter x:Key="Converter"/>
+    </UserControl.Resources>
+
+    <Viewbox>
+        <Grid >
+            <Image Source="Assets/clock.png"
+                    Height="100"
+                    Width="100"/>
+            <Image Source="Assets/pointers/hours.png"
+                       Height="35"
+                       Width="7"
+                       VerticalAlignment="Top"
+                       Margin="0 16 0 0">
+                <Image.RenderTransform>
+                    <RotateTransform x:Name="hourHand"
+                                         CenterX="3.5"
+                                         CenterY="33.3"
+                                         Angle="{Binding Path=DateTime, ElementName=userControl, Converter={StaticResource Converter}, ConverterParameter=2}" />
+                </Image.RenderTransform>
+            </Image>
+            <Image Source="Assets/pointers/minutes.png"
+                       Height="35"
+                       Width="7"
+                       VerticalAlignment="Top"
+                       Margin="0 16 0 0">
+                <Image.RenderTransform>
+                    <RotateTransform x:Name="minuteHand"
+                                         CenterX="3.5"
+                                         CenterY="33.3"
+                                         Angle="{Binding Path=DateTime, ElementName=userControl, Converter={StaticResource Converter}, ConverterParameter=1}" />
+                </Image.RenderTransform>
+            </Image>
+            <Image Source="Assets/pointers/seconds.png"
+                       Height="35"
+                       Width="7"
+                       VerticalAlignment="Top"
+                       Margin="0 16 0 0">
+                <Image.RenderTransform>
+                    <RotateTransform x:Name="secondHand"
+                                         CenterX="3.5"
+                                         CenterY="33.3"
+                                         Angle="{Binding Path=DateTime, ElementName=userControl, Converter={StaticResource Converter}, ConverterParameter=0}" />
+                </Image.RenderTransform>
+            </Image>
+        </Grid>
+    </Viewbox>
+</UserControl>

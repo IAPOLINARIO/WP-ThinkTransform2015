@@ -72,51 +72,15 @@
             <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="11" Fill="#3FCED6"/>
             <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="11" Fill="#A4F1F6"/>
         </StackPanel>
-        <Grid Grid.Row="0"
+        <local:AnalogWatchControl
+              Grid.Row="0"
               Margin="0 0 30 0"
               HorizontalAlignment="Right"
-              VerticalAlignment="Center">
-            <Image Source="Assets/clock.png"
-                Height="100"
-                Width="100"
-                HorizontalAlignment="Right"/>
-            <Image Source="Assets/pointers/hours.png"
-                   Height="35"
-                   Width="7"
-                   VerticalAlignment="Top"
-                   Margin="0 16 0 0">
-                <Image.RenderTransform>
-                    <RotateTransform x:Name="hourHand"
-                                     CenterX="3.5"
-                                     CenterY="33.3"
-                                     Angle="0" />
-                </Image.RenderTransform>
-            </Image>
-            <Image Source="Assets/pointers/minutes.png"
-                   Height="35"
-                   Width="7"
-                   VerticalAlignment="Top"
-                   Margin="0 16 0 0">
-                <Image.RenderTransform>
-                    <RotateTransform x:Name="minuteHand"
-                                     CenterX="3.5"
-                                     CenterY="33.3"
-                                     Angle="0" />
-                </Image.RenderTransform>
-            </Image>
-            <Image Source="Assets/pointers/seconds.png"
-                   Height="35"
-                   Width="7"
-                   VerticalAlignment="Top"
-                   Margin="0 16 0 0">
-                <Image.RenderTransform>
-                    <RotateTransform x:Name="secondHand"
-                                     CenterX="3.5"
-                                     CenterY="33.3"
-                                     Angle="0" />
-                </Image.RenderTransform>
-            </Image>
-        </Grid>
+              VerticalAlignment="Center"
+              DataContext="{StaticResource SyncDate}"
+              DateTime="{Binding Value}"
+              Height="100"/>
+
         <Hub x:Name="Hub"
              x:Uid="Hub"
              HeaderTemplate="{StaticResource HubHeader}" 
@@ -132,91 +96,19 @@
                         </Grid.RowDefinitions>
                         <local:DigitalWatchControl
                             VerticalAlignment="Bottom"
-                            HorizontalAlignment="Center"
+                            HorizontalAlignment="Stretch"
                             DataContext="{StaticResource SyncDate}"
                             DateTime="{Binding Value}"/>
                         <local:HoldButton
                             Grid.Row="1"
                             VerticalAlignment="Bottom"
-                            HorizontalAlignment="Center"/>
+                            HorizontalAlignment="Center"
+                            Height="200"
+                            Margin="0 0 0 40"/>
                     </Grid>
                 </DataTemplate>
             </HubSection>
 
-            <HubSection x:Uid="HubSectionHistory">
-                <DataTemplate>
-                    <Grid>
-                    </Grid>
-                </DataTemplate>
-            </HubSection>
-
-            <HubSection x:Uid="HubSectionProfile" x:Name="HubSectionProfile">
-                <DataTemplate>
-                    <StackPanel>
-                        <Border 
-                            Height="150"
-                            Width="150"
-                            CornerRadius="75"
-                            BorderBrush="#3FCED6"
-                            BorderThickness="10">
-                            <Ellipse
-                            Width="130"
-                            Height="130">
-                                <Ellipse.Fill>
-                                    <ImageBrush>
-                                        <ImageBrush.ImageSource>
-                                            <BitmapImage
-                                            UriSource="{Binding photo}"/>
-                                        </ImageBrush.ImageSource>
-                                    </ImageBrush>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                        </Border>
-                        <TextBlock
-                            FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
-                            Margin="0, 30, 0, 0"
-                            Foreground="#FC183C"
-                            FontSize="18"
-                            Text="{Binding name}"
-                            HorizontalAlignment="Center"
-                            />
-                        <TextBlock
-                            FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
-                            Foreground="#3FCED6"
-                            FontSize="18"
-                            Text="{Binding role}"
-                            HorizontalAlignment="Center"
-                            />
-                        <StackPanel
-                            Margin="0, 40, 0, 0"
-                            Width="Auto"
-                            Orientation="Horizontal"
-                            HorizontalAlignment="Center">
-                            <TextBlock
-                                Margin="0, 0, 4, 0"
-                                FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
-                                Foreground="#3FCED6"
-                                FontSize="18"
-                                Text="Coach:"
-                                />
-                            <TextBlock
-                            FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
-                            Foreground="#3FCED6"
-                            FontSize="18"
-                            Text="{Binding mentor}"
-                            Width="Auto"
-                            />
-                        </StackPanel>
-                        
-                        <Button Click="LogoffButtonClicked"
-                            Margin="0, 30, 0, 0"
-                            HorizontalAlignment="Center"
-                            BorderThickness="0"
-                            Style="{StaticResource buttonTemplate}"/>
-                    </StackPanel>
-                    
-                </DataTemplate>
-            </HubSection>
             <HubSection x:Name="HubSectionHistoricalChecks">
                 <DataTemplate>
                     <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Visible" VerticalScrollMode="Enabled">
@@ -299,6 +191,76 @@
                     </ScrollViewer>
                 </DataTemplate>
             </HubSection>
+
+            <HubSection x:Uid="HubSectionProfile" x:Name="HubSectionProfile">
+                <DataTemplate>
+                    <Viewbox>
+                    <StackPanel>
+                        <Border 
+                            Height="150"
+                            Width="150"
+                            CornerRadius="75"
+                            BorderBrush="#3FCED6"
+                            BorderThickness="10">
+                            <Ellipse
+                            Width="130"
+                            Height="130">
+                                <Ellipse.Fill>
+                                    <ImageBrush>
+                                        <ImageBrush.ImageSource>
+                                            <BitmapImage
+                                            UriSource="{Binding photo}"/>
+                                        </ImageBrush.ImageSource>
+                                    </ImageBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </Border>
+                        <TextBlock
+                            FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                            Margin="0, 30, 0, 0"
+                            Foreground="#FC183C"
+                            FontSize="18"
+                            Text="{Binding name}"
+                            HorizontalAlignment="Center"
+                            />
+                        <TextBlock
+                            FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                            Foreground="#3FCED6"
+                            FontSize="18"
+                            Text="{Binding role}"
+                            HorizontalAlignment="Center"
+                            />
+                        <StackPanel
+                            Margin="0, 40, 0, 0"
+                            Width="Auto"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                            <TextBlock
+                                Margin="0, 0, 4, 0"
+                                FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                                Foreground="#3FCED6"
+                                FontSize="18"
+                                Text="Coach:"
+                                />
+                            <TextBlock
+                            FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                            Foreground="#3FCED6"
+                            FontSize="18"
+                            Text="{Binding mentor}"
+                            Width="Auto"
+                            />
+                        </StackPanel>
+
+                        <Button Click="LogoffButtonClicked"
+                            Margin="0, 30, 0, 0"
+                            HorizontalAlignment="Center"
+                            BorderThickness="0"
+                            Style="{StaticResource buttonTemplate}"/>
+                    </StackPanel>
+                    </Viewbox>
+                </DataTemplate>
+            </HubSection>
+
         </Hub>
     </Grid>
 </Page>

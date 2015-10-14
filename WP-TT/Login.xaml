@@ -241,50 +241,14 @@
                 <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="22" Fill="#3FCED6"/>
                 <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="22" Fill="#A4F1F6"/>
             </StackPanel>
-            <Grid Grid.Row="1"
+
+            <local:AnalogWatchControl
+              Grid.Row="1"
               Margin="0 0 5 0"
-              HorizontalAlignment="Center">
-                <Image Source="Assets/clock.png"
-                Height="200"
-                Width="200"
-                HorizontalAlignment="Right"/>
-                <Image Source="Assets/pointers/hours.png"
-                   Height="70"
-                   Width="14"
-                   VerticalAlignment="Top"
-                   Margin="0 53 0 0">
-                    <Image.RenderTransform>
-                        <RotateTransform x:Name="hourHand"
-                                     CenterX="7"
-                                     CenterY="66.6"
-                                     Angle="0" />
-                    </Image.RenderTransform>
-                </Image>
-                <Image Source="Assets/pointers/minutes.png"
-                   Height="70"
-                   Width="14"
-                   VerticalAlignment="Top"
-                   Margin="0 53 0 0">
-                    <Image.RenderTransform>
-                        <RotateTransform x:Name="minuteHand"
-                                     CenterX="7"
-                                     CenterY="66.6"
-                                     Angle="0" />
-                    </Image.RenderTransform>
-                </Image>
-                <Image Source="Assets/pointers/seconds.png"
-                   Height="70"
-                   Width="14"
-                   VerticalAlignment="Top"
-                   Margin="0 53 0 0">
-                    <Image.RenderTransform>
-                        <RotateTransform x:Name="secondHand"
-                                     CenterX="7"
-                                     CenterY="66.6"
-                                     Angle="0" />
-                    </Image.RenderTransform>
-                </Image>
-            </Grid>
+              HorizontalAlignment="Center"
+              DataContext="{StaticResource SyncDate}"
+              DateTime="{Binding Value}"
+              Height="200"/>
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>

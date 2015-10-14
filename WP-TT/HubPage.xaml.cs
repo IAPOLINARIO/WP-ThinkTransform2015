@@ -40,16 +40,6 @@ namespace WP_TT
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
-
-            this.GetSyncDate().PropertyChanged += SyncDate_PropertyChanged;
-        }
-
-        private void SyncDate_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            DateTime date = ((SyncDate)sender).Value;
-            secondHand.Angle = date.Second * 6;
-            minuteHand.Angle = date.Minute * 6;
-            hourHand.Angle = (date.Hour * 30) + (date.Minute * 0.5);
         }
 
         public NavigationHelper NavigationHelper

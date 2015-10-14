@@ -11,28 +11,30 @@
     <UserControl.Resources>
         <local:DigitalWatchConverter x:Key="Converter"/>
     </UserControl.Resources>
-    
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0"
+
+    <Viewbox>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                           FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
+                           Foreground="#ffd05f"
+                           x:Name="txtHours">
+                <TextBlock.Inlines>
+                    <Run FontSize="90" Text="{Binding Path=DateTime, ElementName=userControl, Converter={StaticResource Converter}, ConverterParameter=0}"/>
+                    <Run FontSize="30" Text="{Binding Path=DateTime, ElementName=userControl, Converter={StaticResource Converter}, ConverterParameter=1}"/>
+                </TextBlock.Inlines>
+            </TextBlock>
+            <TextBlock                    
+                       Text="{Binding Path=DateTime, ElementName=userControl, Converter={StaticResource Converter}, ConverterParameter=2}"
+                       Margin="0 100 0 0"
+                       FontSize="35"
+                       Foreground="#A4F1F6"
                        FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
-                       Foreground="#ffd05f"
-                       x:Name="txtHours">
-            <TextBlock.Inlines>
-                <Run FontSize="90" Text="{Binding Path=DateTime, ElementName=userControl, Converter={StaticResource Converter}, ConverterParameter=0}"/>
-                <Run FontSize="30" Text="{Binding Path=DateTime, ElementName=userControl, Converter={StaticResource Converter}, ConverterParameter=1}"/>
-            </TextBlock.Inlines>
-        </TextBlock>
-        <TextBlock                    
-                   Text="{Binding Path=DateTime, ElementName=userControl, Converter={StaticResource Converter}, ConverterParameter=2}"
-                   Margin="0 100 0 0"
-                   FontSize="35"
-                   Foreground="#A4F1F6"
-                   FontFamily="/Assets/Fonts/Nunito-Regular.ttf#Nunito"
-                   x:Name="txtDate"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Bottom"/>
-    </Grid>
+                       x:Name="txtDate"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"/>
+        </Grid>
+    </Viewbox>
 </UserControl>
