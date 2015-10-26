@@ -1,8 +1,8 @@
 ﻿<UserControl
-    x:Class="WP_TT.AnalogWatchControl"
+    x:Class="WP_TT.Controls.AnalogWatchControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WP_TT"
+    xmlns:local="using:WP_TT.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -14,10 +14,10 @@
 
     <Viewbox>
         <Grid >
-            <Image Source="Assets/clock.png"
+            <Image Source="../Assets/clock.png"
                     Height="100"
                     Width="100"/>
-            <Image Source="Assets/pointers/hours.png"
+            <Image Source="../Assets/pointers/hours.png"
                        Height="35"
                        Width="7"
                        VerticalAlignment="Top"
@@ -29,7 +29,7 @@
                                          Angle="{Binding Path=DateTime, ElementName=userControl, Converter={StaticResource Converter}, ConverterParameter=2}" />
                 </Image.RenderTransform>
             </Image>
-            <Image Source="Assets/pointers/minutes.png"
+            <Image Source="../Assets/pointers/minutes.png"
                        Height="35"
                        Width="7"
                        VerticalAlignment="Top"
@@ -41,7 +41,7 @@
                                          Angle="{Binding Path=DateTime, ElementName=userControl, Converter={StaticResource Converter}, ConverterParameter=1}" />
                 </Image.RenderTransform>
             </Image>
-            <Image Source="Assets/pointers/seconds.png"
+            <Image Source="../Assets/pointers/seconds.png"
                        Height="35"
                        Width="7"
                        VerticalAlignment="Top"

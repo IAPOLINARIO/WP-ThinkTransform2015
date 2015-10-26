@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using WP_TT.Models;
 
-namespace WP_TT
+namespace WP_TT.Common
 {
     public static class PageExtensions
     {

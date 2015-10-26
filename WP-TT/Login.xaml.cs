@@ -63,7 +63,7 @@ namespace WP_TT
             {
                 MessageDialog message = new MessageDialog("Usuário ou senha inválidos");
 
-                message.ShowAsync();
+                await message.ShowAsync();
             }
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WP_TT.Models
 {
-    class TTCheck
+    public class TTCheck
     {
         public String UserName { get; set; }
         public DateTime DateTime { get; set; }

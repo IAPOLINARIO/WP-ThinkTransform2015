@@ -3,11 +3,11 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
-namespace WP_TT
+namespace WP_TT.Controls
 {
-    public sealed partial class DigitalWatchControl : UserControl
+    public sealed partial class AnalogWatchControl : UserControl
     {
-        DependencyProperty DateTimeProperty = DependencyProperty.Register("DateTime", typeof(DateTime), typeof(DigitalWatchControl), new PropertyMetadata(DateTime.Now));
+        DependencyProperty DateTimeProperty = DependencyProperty.Register("DateTime", typeof(DateTime), typeof(AnalogWatchControl), new PropertyMetadata(DateTime.Now));
 
         public DateTime DateTime
         {
@@ -21,19 +21,13 @@ namespace WP_TT
             }
         }
 
-        private TextBlock hours;
-
-        private TextBlock seconds;
-
-        private TextBlock date;
-
-        public DigitalWatchControl()
+        public AnalogWatchControl()
         {
             this.InitializeComponent();
         }
     }
 
-    public class DigitalWatchConverter : IValueConverter
+    public class AnalogWatchConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
@@ -43,11 +37,13 @@ namespace WP_TT
 
             switch (param)
             {
-                case 0 : return date.ToString("HH:mm");
-                case 1 : return String.Format(":{0:00}", date.Second);
-                case 2 : return date.ToString("dd MMMM yyyy");
-                default: return "";
+                case 0: return date.Second * 6;
+                case 1: return date.Minute * 6;
+                case 2: return (date.Hour * 30) + (date.Minute * 0.5);
+                default: return 0;
             }
+
+            return 0;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -55,4 +51,5 @@ namespace WP_TT
             throw new NotImplementedException();
         }
     }
+
 }

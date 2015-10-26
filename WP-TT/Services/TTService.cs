@@ -14,7 +14,7 @@ namespace WP_TT.Services
             var client = new TTClient();
                         
 #if DEBUG
-            var checkinDatetime = (DateTime?)DateTime.Now;
+            var checkinDatetime = await this.doCheckInOrOutMockAsync();
 #else
             var checkinDatetime = await client.DoCheckInOrOutAsync(SecurityService.getCredential().Item1, SecurityService.getCredential().Item2);
 #endif
@@ -25,10 +25,17 @@ namespace WP_TT.Services
                 var check = new TTCheck();
                 check.UserName = SecurityService.getCredential().Item1;
                 check.DateTime = checkinDatetime.Value;
-                await repository.SaveAsync(check);
+                await Historic.Historic.AddAsync(check);
             }
 
             return checkinDatetime;
+        }
+
+        //Only used in "debug mode"
+        private async Task<DateTime?> doCheckInOrOutMockAsync()
+        {
+            await Task.Delay(1500);
+            return (DateTime?)DateTime.Now;
         }
     }
 }
