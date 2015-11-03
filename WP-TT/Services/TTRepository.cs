@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,19 +11,33 @@ using WP_TT.Models;
 namespace WP_TT.Services
 {
 
-    class TTRepository
+    public class TTRepository
     {
         private const string FILENAME = "checks.txt";
+
         public async Task SaveAsync(TTCheck check)
         {
-            var checks = (await FindAllAsync()).ToList();
+            var checks = (await findAllAsync()).ToList();
             checks.Add(check);
             var jsonString = JsonConvert.SerializeObject(checks);
-            var file = await LocalFile();
+            var file = await localFile();
             await FileIO.WriteTextAsync(file, jsonString);
         }
 
-        private async Task<StorageFile> LocalFile()
+        public async Task DeleteAsync(TTCheck check)
+        {
+            var checks = (await findAllAsync()).ToList();
+
+            TTCheck orginalCheck = checks.Single(c => c.UserName == check.UserName && c.DateTime.Ticks == check.DateTime.Ticks);
+
+            checks.Remove(orginalCheck);
+
+            var jsonString = JsonConvert.SerializeObject(checks);
+            var file = await localFile();
+            await FileIO.WriteTextAsync(file, jsonString);
+        }
+
+        private async Task<StorageFile> localFile()
         {
             StorageFile file;
 
@@ -38,11 +53,11 @@ namespace WP_TT.Services
             return file;
         }
 
-        private async Task<IEnumerable<TTCheck>> FindAllAsync()
+        private async Task<IEnumerable<TTCheck>> findAllAsync()
         {
             try
             {
-                var file = await LocalFile();
+                var file = await localFile();
                 var jsonString = await FileIO.ReadTextAsync(file);
                 if (jsonString != String.Empty)
                 {
@@ -59,7 +74,7 @@ namespace WP_TT.Services
 
         public async Task<IEnumerable<TTCheck>> FindAllByUserNameAsync(string userName)
         {
-            var checks = await FindAllAsync();
+            var checks = await findAllAsync();
             var checksByUserName = checks.Where(s => s.UserName == userName);
 
             return checksByUserName.ToArray();

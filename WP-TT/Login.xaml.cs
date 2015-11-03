@@ -31,16 +31,6 @@ namespace WP_TT
         public Login()
         {
             this.InitializeComponent();
-
-            this.GetSyncDate().PropertyChanged += SyncDate_PropertyChanged;
-        }
-
-        private void SyncDate_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            DateTime date = ((SyncDate)sender).Value;
-            secondHand.Angle = date.Second * 6;
-            minuteHand.Angle = date.Minute * 6;
-            hourHand.Angle = (date.Hour * 30) + (date.Minute * 0.5);
         }
 
         /// <summary>
@@ -73,7 +63,7 @@ namespace WP_TT
             {
                 MessageDialog message = new MessageDialog("Usuário ou senha inválidos");
 
-                message.ShowAsync();
+                await message.ShowAsync();
             }
         }
 
