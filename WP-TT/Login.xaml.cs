@@ -61,7 +61,7 @@ namespace WP_TT
             }
             else
             {
-                MessageDialog message = new MessageDialog("Usuário ou senha inválidos");
+                MessageDialog message = new MessageDialog("Ocorreu um problema ao contactar o servidor. Verifique os dados e tente novamente.");
 
                 await message.ShowAsync();
             }
