@@ -142,14 +142,6 @@
                     </Grid>
                 </DataTemplate>
             </HubSection>
-
-            <HubSection x:Uid="HubSectionHistory">
-                <DataTemplate>
-                    <Grid>
-                    </Grid>
-                </DataTemplate>
-            </HubSection>
-
             <HubSection x:Uid="HubSectionProfile" x:Name="HubSectionProfile">
                 <DataTemplate>
                     <StackPanel>

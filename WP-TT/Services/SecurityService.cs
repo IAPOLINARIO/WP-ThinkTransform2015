@@ -54,9 +54,6 @@ namespace WP_TT.Services
                 vault.Add(new PasswordCredential(VAULT_RESOURCE, username, password));
                 success = true;
 
-               
-                
-                
             }
             catch (Exception e)
             {
